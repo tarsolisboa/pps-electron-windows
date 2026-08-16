@@ -54,7 +54,7 @@ cd pps-electron-universal
 ### 2. Instalar as dependências
 Instala todas as bibliotecas necessárias para o frontend e o backend do Electron:
 ```bash
-npm install
+npm install --save
 ```
 
 ### 3. Rodar a aplicação em modo de desenvolvimento

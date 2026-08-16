@@ -1,4 +1,4 @@
-import si from 'systeminformation';
+const si = eval('require')('systeminformation');
 
 // Variáveis de Cache: guardam os dados estáticos para não fritar o processador a cada 1 segundo
 let cachedCpuInfo = null;

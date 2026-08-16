@@ -1,7 +1,7 @@
-import si from 'systeminformation';
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 
+const si = eval('require')('systeminformation');
 const execAsync = promisify(exec);
 
 // ==========================================

@@ -1,7 +1,5 @@
-import si from 'systeminformation';
+const si = eval('require')('systeminformation');
 
-// Cache para o nome do adaptador principal (ex: "Wi-Fi" ou "Ethernet")
-// Evita varrer dezenas de adaptadores virtuais inúteis a cada 1.5s
 let defaultIfaceCache = null;
 let lastCacheUpdate = 0;
 

@@ -1,10 +1,29 @@
 import { VitePlugin } from '@electron-forge/plugin-vite';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default {
-    packagerConfig: {},
+    packagerConfig: {
+        asar: {
+            unpack: "**/node_modules/systeminformation/**/*"
+        },
+        extraResource: [
+            "./public/favicon.ico" // Coloque o caminho correto do seu ícone original aqui
+        ]
+    },
     rebuildConfig: {},
     makers: [
-        { name: '@electron-forge/maker-squirrel', config: {} },
+        { 
+            name: '@electron-forge/maker-squirrel', 
+            config: {
+                loadingGif: undefined,
+                noMsi: true
+            } 
+        },
         { name: '@electron-forge/maker-zip', platforms: ['darwin'] },
         { name: '@electron-forge/maker-deb', config: {} },
         { name: '@electron-forge/maker-dmg', config: {} },
@@ -29,4 +48,16 @@ export default {
             ],
         }),
     ],
+    hooks: {
+        packageAfterPrune: async (config, buildPath) => {
+            const srcModule = path.join(__dirname, 'node_modules', 'systeminformation');
+            const destModule = path.join(buildPath, 'node_modules', 'systeminformation');
+
+            if (fs.existsSync(srcModule)) {
+                fs.mkdirSync(path.dirname(destModule), { recursive: true });
+                fs.cpSync(srcModule, destModule, { recursive: true });
+                console.log('>>> systeminformation copiado com sucesso para o pacote de produção!');
+            }
+        }
+    }
 };

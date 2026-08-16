@@ -1,7 +1,7 @@
-import si from 'systeminformation';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 
+const si = eval('require')('systeminformation');
 const execAsync = promisify(exec);
 
 const HardwareService = {

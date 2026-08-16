@@ -1,4 +1,4 @@
-import si from 'systeminformation';
+const si = eval('require')('systeminformation');
 
 const DiskService = {
     async getDiskStats() {
