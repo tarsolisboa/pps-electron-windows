@@ -115,6 +115,10 @@ let mainWindow = null;
 let tray = null;
 let isQuitting = false;
 
+let trayIcon = app.isPackaged 
+    ? nativeImage.createFromPath(path.join(process.resourcesPath, 'favicon.ico'))
+    : nativeImage.createFromPath(path.join(__dirname, '../../public/favicon.ico'));
+
 app.on('before-quit', () => {
     isQuitting = true;
 });
@@ -189,17 +193,17 @@ export async function updateTrayMenu() {
 
 const createWindow = () => {
     mainWindow = new BrowserWindow({
-        width: 1024,
-        height: 768,
+        width: 1000,
+        height: 730,
         minWidth: 800,
         minHeight: 550,
         frame: false,
         center: true,
-        show: false,
+        show: true,
         autoHideMenuBar: true,
-        icon: path.join(__dirname, '../../public/favicon.ico'),
+        icon: trayIcon,
         transparent: true,
-        backgroundColor: '#0f172a',
+        backgroundColor: '#00000000',
         webPreferences: {
             preload: path.join(__dirname, 'bridge.js'),
             nodeIntegration: false,
@@ -322,9 +326,7 @@ app.whenReady().then(async () => {
     // CRIAÇÃO DO ÍCONE NA BANDEJA (TRAY)
     try {
 
-        let trayIcon = app.isPackaged 
-            ? nativeImage.createFromPath(path.join(process.resourcesPath, 'favicon.ico'))
-            : nativeImage.createFromPath(path.join(__dirname, '../../public/favicon.ico'));
+        
             
         if (trayIcon.isEmpty()) {
             trayIcon = nativeImage.createEmpty();
