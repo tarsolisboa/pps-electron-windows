@@ -12,7 +12,7 @@ import startupSvg from '../assets/icons/rocket.svg';
 import cleanerSvg from '../assets/icons/brush-cleaning.svg';
 import uninstallerSvg from '../assets/icons/package.svg';
 import settingsSvg from '../assets/icons/settings.svg';
-import accountSvg from '../assets/icons/circle-user.svg';
+import aboutSvg from '../assets/icons/info.svg';
 
 const useStyles = makeStyles({
     sidebar: {
@@ -44,7 +44,7 @@ export const Sidebar = memo(function Sidebar({ currentTab, onSelectTab, isDarkMo
         { id: 'cleaner', icon: <img src={cleanerSvg} alt="" style={{ filter: isDarkMode ? 'invert(1)' : 'none' }} />, label: t('nav.cleaner') },
         { id: 'uninstaller', icon: <img src={uninstallerSvg} alt="" style={{ filter: isDarkMode ? 'invert(1)' : 'none' }} />, label: t('nav.uninstaller') },
         { id: 'settings', icon: <img src={settingsSvg} alt="" style={{ filter: isDarkMode ? 'invert(1)' : 'none' }} />, label: t('nav.settings') },
-        { id: 'about', icon: <img src={accountSvg} alt="" style={{ filter: isDarkMode ? 'invert(1)' : 'none' }} />, label: t('nav.account') },
+        { id: 'about', icon: <img src={aboutSvg} alt="" style={{ filter: isDarkMode ? 'invert(1)' : 'none' }} />, label: t('nav.account') },
     ];
 
     return (

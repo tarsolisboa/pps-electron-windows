@@ -1,17 +1,21 @@
-import pt from './pt';
+import de from './de';
 import en from './en';
-//import es from './es';
-//import de from './de';
-//import ru from './ru';
-//import zhTW from './zh-TW';
+import es from './es';
+import fr from './fr';
+import jp from './jp';
+import pt from './pt';
+import ru from './ru';
+import zhTW from './zhTW';
 
 const translations = {
-    pt,
+    de,
     en,
-    //es,
-    //de,
-    //ru,
-    //'zh-TW': zhTW
+    es,
+    fr,
+    jp,
+    pt,
+    ru,
+    'zh-TW': zhTW
 };
 
 // Idioma padrão configurado como inglês

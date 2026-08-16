@@ -130,10 +130,12 @@ export async function updateTrayMenu() {
     const lang = settings.language || 'en';
 
     const trayTexts = {
-        'pt': { show: 'Reexibir o programa', plans: 'Planos de Energia', exit: 'Encerrar', noPlans: 'Nenhum plano encontrado' },
+        'de': { show: 'Programm anzeigen', plans: 'Energiepläne', exit: 'Beenden', noPlans: 'Keine Pläne gefunden' },
         'en': { show: 'Show window', plans: 'Power Plans', exit: 'Exit', noPlans: 'No plans found' },
         'es': { show: 'Mostrar programa', plans: 'Planes de energía', exit: 'Salir', noPlans: 'No se encontraron planes' },
-        'de': { show: 'Programm anzeigen', plans: 'Energiepläne', exit: 'Beenden', noPlans: 'Keine Pläne gefunden' },
+        'fr': { show: 'Vitrine', plans: 'Modes de gestion de l\'alimentation', exit: 'Sortie', noPlans: 'Aucun plan trouvé' },
+        'jp': { show: 'ショーウィンドウ', plans: '電源プラン', exit: '出口', noPlans: 'プランは見つかりませんでした' },
+        'pt': { show: 'Reexibir o programa', plans: 'Planos de Energia', exit: 'Encerrar', noPlans: 'Nenhum plano encontrado' },
         'ru': { show: 'Показать программу', plans: 'Планы питания', exit: 'Выход', noPlans: 'Планы не найдены' },
         'zh-TW': { show: '顯示程式', plans: '電源計畫', exit: '退出', noPlans: '未找到計畫' }
     };
@@ -268,10 +270,12 @@ const createWindow = () => {
             // Verifica se a opção "Confirmar ao sair" está ativada
             if (settings.confirmOnExit) {
                 const dialogTexts = {
-                    'pt': { title: 'Confirmação', msg: 'Deseja realmente encerrar o PowerPlan Switcher?', btnYes: 'Sim, encerrar', btnNo: 'Não, cancelar' },
+                    'de': { title: 'Bestätigung', msg: 'Möchten Sie PowerPlan Switcher wirklich beenden?', btnYes: 'Ja, nah dran.', btnNo: 'Nein, abbrechen' },
                     'en': { title: 'Confirmation', msg: 'Do you really want to exit PowerPlan Switcher?', btnYes: 'Yes, close', btnNo: 'No, cancel' },
                     'es': { title: 'Confirmación', msg: '¿Realmente deseas salir de PowerPlan Switcher?', btnYes: 'Sí, cerca', btnNo: 'No, cancelar' },
-                    'de': { title: 'Bestätigung', msg: 'Möchten Sie PowerPlan Switcher wirklich beenden?', btnYes: 'Ja, nah dran.', btnNo: 'Nein, abbrechen' },
+                    'ft': { title: 'Confirmation', msg: 'Voulez-vous vraiment quitter PowerPlan Switcher ?', btnYes: 'Oui, tout près', btnNo: 'Non, annuler'},
+                    'jp': { title: '確認', msg: '本当に PowerPlan Switcher を終了しますか？', btnYes: 'はい、近いです。', btnNo: 'いいえ、キャンセルします'},
+                    'pt': { title: 'Confirmação', msg: 'Deseja realmente encerrar o PowerPlan Switcher?', btnYes: 'Sim, encerrar', btnNo: 'Não, cancelar' },
                     'ru': { title: 'Подтверждение', msg: 'Вы действительно хотите выйти из PowerPlan Switcher?', btnYes: 'Да, близко', btnNo: 'Нет, отмена' },
                     'zh-TW': { title: '確認', msg: '您確定要退出 PowerPlan Switcher 嗎？', btnYes: '是的，很接近', btnNo: '不，取消' }
                 };

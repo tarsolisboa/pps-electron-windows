@@ -148,6 +148,8 @@ export function SettingsView({ isDarkMode }) {
                         <option value="de">Deutsch</option>
                         <option value="en">English</option>
                         <option value="es">Español</option>
+                        <option value="fr">Française</option>
+                        <option value="jp">日本語</option>
                         <option value="pt">Português</option>
                         <option value="ru">Русский</option>
                     </Select>
