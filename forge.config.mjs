@@ -22,7 +22,9 @@ export default {
             config: {
                 loadingGif: undefined,
                 noMsi: true
-            } 
+            },
+            iconUrl: 'http://localhost:5173/favicon.ico',
+            setupIcon: './public/favicon.ico'
         },
         { name: '@electron-forge/maker-zip', platforms: ['darwin'] },
         { name: '@electron-forge/maker-deb', config: {} },
