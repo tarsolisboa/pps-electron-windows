@@ -13,7 +13,8 @@ export default {
         },
         extraResource: [
             "./public/favicon.ico" // Coloque o caminho correto do seu ícone original aqui
-        ]
+        ],
+        icon: "./public/favicon"
     },
     rebuildConfig: {},
     makers: [
