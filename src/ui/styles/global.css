@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: transparent !important;
+    font-family: 'Segoe UI Variable Text', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%) !important;
+    /*border: 1px solid rgba(255, 255, 255, 0.6);*/
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Quando a janela estiver maximizada, ajusta os cantos e remove a borda */
+body.maximized #root {
+    border-radius: 0px;
+    border: none;
+}
+
+/* Remove qualquer fundo branco automático que o FluentProvider crie */
+.fui-FluentProvider {
+    background: transparent !important;
+    background-color: transparent !important;
+    height: 100vh;
+}
+
+/* Torna um elemento arrastável pela área de trabalho */
+.app-titlebar {
+    -webkit-app-region: drag;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 32px;
+    width: 100%;
+    background: transparent;
+}
+
+/* IMPORTANTE: Botões e campos clicáveis dentro da barra DEVEM ser 'no-drag' */
+.app-titlebar button,
+.app-titlebar input {
+    -webkit-app-region: no-drag;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none !important;
+    mix-blend-mode: normal !important;
+}
+
+::view-transition-old(root) {
+    z-index: 1;
+}
+
+::view-transition-new(root) {
+    z-index: 9999;
+}
