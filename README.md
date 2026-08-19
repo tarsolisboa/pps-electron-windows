@@ -1,4 +1,4 @@
-# ⚡ PowerPlan Switcher
+# ⚡ OmniCheck
 
 > Um utilitário de sistema integrado que unifica o gerenciamento do Windows, facilitando ajustes de performance de forma ágil e descomplicada.
 
@@ -6,7 +6,7 @@
 
 ## 🚀 Sobre o Projeto
 
-O **PowerPlan Switcher** é uma ferramenta *all-in-one* desenvolvida em **Electron** e **React** (utilizando Fluent UI 2), projetada para entusiastas, gamers e *power users* que desejam monitorar, otimizar e controlar o Windows de forma centralizada e sem complicações.
+O **OmniCheck** é uma ferramenta *all-in-one* desenvolvida em **Electron** e **React** (utilizando Fluent UI 2), projetada para entusiastas, gamers e *power users* que desejam monitorar, otimizar e controlar o Windows de forma centralizada e sem complicações.
 
 ---
 
@@ -80,7 +80,7 @@ npm run make
 
 ## ☕ Apoie o Projeto
 
-Se o **PowerPlan Switcher** foi útil para você, considere apoiar o desenvolvimento do projeto!
+Se o **OmniCheck** foi útil para você, considere apoiar o desenvolvimento do projeto!
 
 ---
 

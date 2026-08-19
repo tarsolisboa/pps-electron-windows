@@ -208,7 +208,7 @@ export default {
     // --- ABOUT ---
     "about.title": "情報",
     "about.subtitle": "プロジェクト情報。",
-    "about.appWhatIsTitle": "PowerPlan Switcherとは？",
+    "about.appWhatIsTitle": "OmniCheckとは？",
     "about.appDesc": "OSの管理を統合し、パフォーマンスの調整を迅速かつ簡単にするための統合ユーティリティです。このプロジェクトが気に入りましたか？ 支援をご検討ください！",
     "about.coffee": "寄付をしたいです。",
     "about.licenseUseTitle": "利用ライセンス",

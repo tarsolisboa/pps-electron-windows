@@ -200,7 +200,7 @@ export default {
     // --- ABOUT ---
     "about.title": "Sobre",
     "about.subtitle": "Informações sobre o projeto.",
-    "about.appWhatIsTitle": "O que é PowerPlan Switcher?",
+    "about.appWhatIsTitle": "O que é OmniCheck?",
     "about.appDesc": "É um utilitário integrado que unifica o gerenciamento do sistema operacional, facilitando ajustes de performance de forma ágil e descomplicada. Gostou do projeto? Considere apoiar!",
     "about.coffee": "Quero fazer uma doação",
     "about.licenseUseTitle": "Licenças de uso",

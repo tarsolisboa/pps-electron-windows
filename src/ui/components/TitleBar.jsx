@@ -6,6 +6,7 @@ import themeSvg from '../assets/icons/sun-moon.svg';
 import minimizeSvg from '../assets/icons/minus.svg';
 import maximizeSvg from '../assets/icons/square.svg';
 import closeSvg from '../assets/icons/x.svg';
+import logoPng from '../assets/logo.png';
 
 const useStyles = makeStyles({
     titleBar: {
@@ -63,9 +64,13 @@ export function TitleBar({ onToggleTheme, isDarkMode }) {
 
     return (
         <div className={styles.titleBar}>
-            <Text className={styles.ppsTitle} style={{ color: isDarkMode ? '#f4fc06' : '#ae0e0e' }}>
-                PowerPlan Switcher
-            </Text>
+            <div style={{ display: 'flex', gap: '7px' }}>
+                <img src={logoPng} style={{ width: '25px' }}/>
+                <Text className={styles.ppsTitle} style={{ color: isDarkMode ? '#ff0000' : '#ff0000' }}>
+                    OmniCheck
+                </Text>
+                <Text block size={150} style={{ marginTop: '4px'}}>v1.0.0</Text>
+            </div>
             <div className={styles.titleBarControls}>
                 <Button
                     appearance="subtle"

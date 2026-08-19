@@ -276,14 +276,14 @@ const createWindow = () => {
             // Verifica se a opção "Confirmar ao sair" está ativada
             if (settings.confirmOnExit) {
                 const dialogTexts = {
-                    'de': { title: 'Bestätigung', msg: 'Möchten Sie PowerPlan Switcher wirklich beenden?', btnYes: 'Ja, nah dran.', btnNo: 'Nein, abbrechen' },
-                    'en': { title: 'Confirmation', msg: 'Do you really want to exit PowerPlan Switcher?', btnYes: 'Yes, close', btnNo: 'No, cancel' },
-                    'es': { title: 'Confirmación', msg: '¿Realmente deseas salir de PowerPlan Switcher?', btnYes: 'Sí, cerca', btnNo: 'No, cancelar' },
-                    'ft': { title: 'Confirmation', msg: 'Voulez-vous vraiment quitter PowerPlan Switcher ?', btnYes: 'Oui, tout près', btnNo: 'Non, annuler'},
-                    'jp': { title: '確認', msg: '本当に PowerPlan Switcher を終了しますか？', btnYes: 'はい、近いです。', btnNo: 'いいえ、キャンセルします'},
-                    'pt': { title: 'Confirmação', msg: 'Deseja realmente encerrar o PowerPlan Switcher?', btnYes: 'Sim, encerrar', btnNo: 'Não, cancelar' },
-                    'ru': { title: 'Подтверждение', msg: 'Вы действительно хотите выйти из PowerPlan Switcher?', btnYes: 'Да, близко', btnNo: 'Нет, отмена' },
-                    'zh-TW': { title: '確認', msg: '您確定要退出 PowerPlan Switcher 嗎？', btnYes: '是的，很接近', btnNo: '不，取消' }
+                    'de': { title: 'Bestätigung', msg: 'Möchten Sie OmniCheck wirklich beenden?', btnYes: 'Ja, nah dran.', btnNo: 'Nein, abbrechen' },
+                    'en': { title: 'Confirmation', msg: 'Do you really want to exit OmniCheck?', btnYes: 'Yes, close', btnNo: 'No, cancel' },
+                    'es': { title: 'Confirmación', msg: '¿Realmente deseas salir de OmniCheck?', btnYes: 'Sí, cerca', btnNo: 'No, cancelar' },
+                    'ft': { title: 'Confirmation', msg: 'Voulez-vous vraiment quitter OmniCheck ?', btnYes: 'Oui, tout près', btnNo: 'Non, annuler'},
+                    'jp': { title: '確認', msg: '本当に OmniCheck を終了しますか？', btnYes: 'はい、近いです。', btnNo: 'いいえ、キャンセルします'},
+                    'pt': { title: 'Confirmação', msg: 'Deseja realmente encerrar o OmniCheck?', btnYes: 'Sim, encerrar', btnNo: 'Não, cancelar' },
+                    'ru': { title: 'Подтверждение', msg: 'Вы действительно хотите выйти из OmniCheck?', btnYes: 'Да, близко', btnNo: 'Нет, отмена' },
+                    'zh-TW': { title: '確認', msg: '您確定要退出 OmniCheck 嗎？', btnYes: '是的，很接近', btnNo: '不，取消' }
                 };
 
                 const lang = settings.language || 'en';
@@ -333,7 +333,7 @@ app.whenReady().then(async () => {
         }
 
         tray = new Tray(trayIcon);
-        tray.setToolTip('PowerPlan Switcher');
+        tray.setToolTip('OmniCheck');
 
         // CHAMA A FUNÇÃO PARA CONSTRUIR O MENU COM OS PLANOS DE ENERGIA
         await updateTrayMenu();

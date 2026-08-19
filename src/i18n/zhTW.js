@@ -208,7 +208,7 @@ export default {
     // --- ABOUT ---
     "about.title": "關於",
     "about.subtitle": "專案資訊。",
-    "about.appWhatIsTitle": "什麼是 PowerPlan Switcher？",
+    "about.appWhatIsTitle": "什麼是 OmniCheck？",
     "about.appDesc": "這是一款整合式工具，可統一管理作業系統，讓效能調整變得快速且簡單。喜歡這個專案嗎？考慮贊助一下吧！",
     "about.coffee": "我想贊助。",
     "about.licenseUseTitle": "使用授權",
