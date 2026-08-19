@@ -68,6 +68,38 @@ ipcMain.handle('uninstaller:uninstall', async (event, uninstallString) => {
 });
 
 // -------------------------------------------------------------
+// SECURITY
+// -------------------------------------------------------------
+ipcMain.removeHandler('get-security-status');
+ipcMain.handle('get-security-status', async () => {
+    try {
+        const osInfo = await si.osInfo();
+        const antivirus = await si.antivirus();
+
+        return {
+            success: true,
+            os: {
+                platform: osInfo.platform,
+                release: osInfo.release,
+                build: osInfo.build,
+                codename: osInfo.codename,
+                uefi: osInfo.uefi
+            },
+            antivirus: antivirus || []
+        };
+    } catch (error) {
+        console.error("Erro ao buscar dados de segurança:", error);
+        return { success: false, os: null, antivirus: [] };
+    }
+});
+
+// Atalho para abrir as configurações nativas do Windows Update
+ipcMain.removeHandler('open-windows-update');
+ipcMain.handle('open-windows-update', async () => {
+    await shell.openExternal('ms-settings:windowsupdate');
+});
+
+// -------------------------------------------------------------
 // NETWORK
 // -------------------------------------------------------------
 ipcMain.removeHandler('network:testDns');
@@ -220,7 +252,7 @@ const createWindow = () => {
     }
 
     // 1. Bloqueia atalhos de teclado do DevTools (F12, Ctrl+Shift+I, etc.)
-    //mainWindow.webContents.openDevTools({ mode: 'detach' });
+    mainWindow.webContents.openDevTools({ mode: 'detach' });
     mainWindow.webContents.on('before-input-event', (event, input) => {
         // Bloqueia F12
         if (input.key === 'F12') {

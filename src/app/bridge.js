@@ -36,6 +36,10 @@ contextBridge.exposeInMainWorld('api', {
         getList: () => ipcRenderer.invoke('process:get-list'),
         killProcess: (pid) => ipcRenderer.invoke('process:kill', pid)
     },
+    security: {
+        getSecurityStatus: () => ipcRenderer.invoke('get-security-status'),
+        openWindowsUpdate: () => ipcRenderer.invoke('open-windows-update'),
+    },
     power: {
         getPlans: () => ipcRenderer.invoke('power:get-plans'),
         setPlan: (planId) => ipcRenderer.invoke('power:set-plan', planId),

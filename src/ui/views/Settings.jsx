@@ -63,7 +63,6 @@ export function SettingsView({ isDarkMode }) {
     const [saving, setSaving] = useState(false);
     const [savedSuccess, setSavedSuccess] = useState(false);
 
-    // Novos estados para as configurações da janela
     const [confirmOnExit, setConfirmOnExit] = useState(true);
     const [minimizeToTray, setMinimizeToTray] = useState(true);
 

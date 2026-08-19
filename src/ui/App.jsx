@@ -15,6 +15,7 @@ import { DashboardView } from './views/Dashboard.jsx';
 import { HardwareInformationView } from './views/HardwareInformation.jsx';
 import { PowerManagerView } from "./views/PowerManager.jsx";
 import { ProcessManagerView } from './views/ProcessManager.jsx';
+import { SecurityView } from './views/SecurityView.jsx';
 import { StartupAppsView } from './views/StartupApps.jsx';
 import { CleanerView } from './views/Cleaner.jsx';
 import { NetworkMonitorView } from './views/NetworkMonitor.jsx';
@@ -120,6 +121,7 @@ export function App() {
             case 'power': return <PowerManagerView />;
             case 'network': return <NetworkMonitorView />;
             case 'process': return <ProcessManagerView />;
+            case 'protection': return <SecurityView />;
             case 'startup': return <StartupAppsView />;
             case 'cleaner': return <CleanerView />;
             case 'uninstaller': return <UninstallerView />;

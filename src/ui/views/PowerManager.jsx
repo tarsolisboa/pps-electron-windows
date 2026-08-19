@@ -37,8 +37,6 @@ export function PowerManagerView() {
         }
     };
 
-    
-
     // 2. Escuta isolada da bandeja do sistema (não interfere no carregamento dos planos)
     useEffect(() => {
         loadData(true); // Carregamento inicial

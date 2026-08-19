@@ -87,7 +87,7 @@ export function HardwareInformationView({ isDarkMode }) {
             </div>
 
             {error && (
-                <Card className={styles.card} style={{ backgroundColor: 'rgba(253, 231, 233, 0.7)' }}>
+                <Card className={styles.card} style={{ backgroundColor: 'rgba(253, 231, 233, 0.35)' }}>
                     <Text weight="semibold" style={{ color: '#a80000' }}>{error}</Text>
                 </Card>
             )}

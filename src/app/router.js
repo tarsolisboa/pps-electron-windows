@@ -1,5 +1,7 @@
-import { ipcMain, BrowserWindow } from 'electron';
+import { ipcMain, BrowserWindow, shell } from 'electron';
 import { updateTrayMenu } from './main.js';
+import { exec } from 'child_process';
+import { promisify } from 'util';
 
 import SettingsService from '../services/settings.service.js';
 import CpuService from '../services/cpu.hardware.js';
@@ -8,12 +10,24 @@ import PowerService from '../services/power.service.js';
 import NetworkService from '../services/network.hardware.js';
 import SystemInfoService from '../services/system.service.js';
 import HardwareService from '../services/hardware.service.js';
+import ProtectionService from '../services/protection.service.js';
 
-import { exec } from 'child_process';
-import { promisify } from 'util';
 const execAsync = promisify(exec);
 
 export function setupIpcRouter() {
+    // -------------------------------------------------------------
+    // PROTEÇÃO
+    // -------------------------------------------------------------
+    ipcMain.removeHandler('get-security-status');
+    ipcMain.handle('get-security-status', async () => {
+        return await ProtectionService.getSecurityStatus();
+    });
+
+    ipcMain.removeHandler('open-windows-update');
+    ipcMain.handle('open-windows-update', async () => {
+        await shell.openExternal('ms-settings:windowsupdate');
+    });
+
     // -------------------------------------------------------------
     // MICROSSERVIÇOS DE HARDWARE & SISTEMA
     // -------------------------------------------------------------

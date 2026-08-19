@@ -10,6 +10,7 @@ import networkSvg from '../assets/icons/network.svg';
 import processSvg from '../assets/icons/blocks.svg';
 import startupSvg from '../assets/icons/rocket.svg';
 import cleanerSvg from '../assets/icons/brush-cleaning.svg';
+import protectionSvg from '../assets/icons/shield.svg';
 import uninstallerSvg from '../assets/icons/package.svg';
 import settingsSvg from '../assets/icons/settings.svg';
 import aboutSvg from '../assets/icons/info.svg';
@@ -39,6 +40,7 @@ export const Sidebar = memo(function Sidebar({ currentTab, onSelectTab, isDarkMo
         { id: 'hardware', icon: <img src={performanceSvg} alt="" style={{ filter: isDarkMode ? 'invert(1)' : 'none' }} />, label: t('nav.hardware') },
         { id: 'power', icon: <img src={powerSvg} alt="" style={{ filter: isDarkMode ? 'invert(1)' : 'none' }} />, label: t('nav.power') },
         { id: 'network', icon: <img src={networkSvg} alt="" style={{ filter: isDarkMode ? 'invert(1)' : 'none' }} />, label: t('nav.network') },
+        { id: 'protection', icon: <img src={protectionSvg} alt="" style={{ filter: isDarkMode ? 'invert(1)' : 'none' }} />, label: t('nav.protection') },
         { id: 'process', icon: <img src={processSvg} alt="" style={{ filter: isDarkMode ? 'invert(1)' : 'none' }} />, label: t('nav.process') },
         { id: 'startup', icon: <img src={startupSvg} alt="" style={{ filter: isDarkMode ? 'invert(1)' : 'none' }} />, label: t('nav.startup') },
         { id: 'cleaner', icon: <img src={cleanerSvg} alt="" style={{ filter: isDarkMode ? 'invert(1)' : 'none' }} />, label: t('nav.cleaner') },
