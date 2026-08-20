@@ -19,9 +19,15 @@
         "productName": "PowerPlanSwitcher",
         "win": {
             "target": [
-                "nsis",
-                "portable"
+                {
+                    "target": "zip",
+                    "arch": [
+                        "x64"
+                    ]
+                }
             ],
+            "certificateFile": "certificate.pfx",
+            "certificatePassword": "stringSenha123",
             "icon": "public/favicon.ico"
         },
         "directories": {

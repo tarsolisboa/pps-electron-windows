@@ -104,7 +104,8 @@ export function UninstallerView({ isDarkMode }) {
                         value={searchTerm}
                         contentBefore={<img src={searchSvg} alt="Search" width="20" height="20" style={{ filter: isDarkMode ? 'invert(1)' : 'none' }}/>}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        size="large"
+                        size="medium"
+                        style={{ maxHeight: '30px' }}
                         clearable
                     />
 

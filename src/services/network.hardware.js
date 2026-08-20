@@ -1,13 +1,11 @@
-const si = eval('require')('systeminformation');
-
 let defaultIfaceCache = null;
 let lastCacheUpdate = 0;
 
 const NetworkService = {
     async getNetworkStats() {
         try {
+            const si = eval('require')('systeminformation');
             const now = Date.now();
-
             // Atualiza qual é a rede ativa a cada 30 segundos (caso troque de Wi-Fi para Cabo)
             if (!defaultIfaceCache || now - lastCacheUpdate > 30000) {
                 defaultIfaceCache = await si.networkInterfaceDefault();

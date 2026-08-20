@@ -1,5 +1,3 @@
-const si = eval('require')('systeminformation');
-
 // Variáveis de Cache: guardam os dados estáticos para não fritar o processador a cada 1 segundo
 let cachedCpuInfo = null;
 let cachedMemTotal = null;
@@ -7,6 +5,7 @@ let cachedMemTotal = null;
 const CpuService = {
     async getCpuStats() {
         try {
+            const si = eval('require')('systeminformation');
             // Se o cache estiver vazio (primeira vez que abre o app), ele faz a leitura pesada
             if (!cachedCpuInfo) {
                 const [cpuInfo, memInfo] = await Promise.all([si.cpu(), si.mem()]);

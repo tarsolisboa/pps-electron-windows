@@ -11,6 +11,11 @@ export default {
         asar: {
             unpack: "**/node_modules/systeminformation/**/*"
         },
+        osxSign: {}, // Ignorar se for só Windows
+        windowsSign: {
+            certificateFile: './certificate.pfx',
+            certificatePassword: 'stringSenha123'
+        },
         extraResource: [
             "./public/favicon.ico" // Coloque o caminho correto do seu ícone original aqui
         ],
@@ -18,8 +23,8 @@ export default {
     },
     rebuildConfig: {},
     makers: [
-        { 
-            name: '@electron-forge/maker-squirrel', 
+        {
+            name: '@electron-forge/maker-squirrel',
             config: {
                 loadingGif: undefined,
                 noMsi: true

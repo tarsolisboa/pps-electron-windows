@@ -1,7 +1,6 @@
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 
-const si = eval('require')('systeminformation');
 const execAsync = promisify(exec);
 
 // ==========================================
@@ -14,6 +13,7 @@ let lastPowerPlanCheck = 0;
 const SystemInfoService = {
     async getSystemStats() {
         try {
+            const si = eval('require')('systeminformation');
             // 1. CACHE ESTÁTICO: Carrega os dados do Windows apenas 1 única vez
             if (!cachedOsInfo) {
                 const osInfo = await si.osInfo();

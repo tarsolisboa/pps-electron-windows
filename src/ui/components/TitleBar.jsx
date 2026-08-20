@@ -66,7 +66,7 @@ export function TitleBar({ onToggleTheme, isDarkMode }) {
         <div className={styles.titleBar}>
             <div style={{ display: 'flex', gap: '7px' }}>
                 <img src={logoPng} style={{ width: '25px' }}/>
-                <Text className={styles.ppsTitle} style={{ color: isDarkMode ? '#ff0000' : '#ff0000' }}>
+                <Text className={styles.ppsTitle} style={{ color: isDarkMode ? '#f70303' : '#f70303' }}>
                     OmniCheck
                 </Text>
                 <Text block size={150} style={{ marginTop: '4px'}}>v1.0.0</Text>

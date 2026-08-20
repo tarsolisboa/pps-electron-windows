@@ -85,7 +85,7 @@ export function AboutView({ isDarkMode }) {
                     <Button
                         appearance="secondary"
                         icon={<img src={coffeeSvg} alt="" width="16" height="16" className={styles.iconImg} style={{ filter: 'brightness(0) saturate(100%) invert(15%) sepia(80%) saturate(7497%) hue-rotate(359deg) brightness(106%) contrast(117%)' }} />}
-                        onClick={() => window.open('https://www.paypal.com/donate/?hosted_button_id=6UVP9DQM9498L', '_blank')}
+                        onClick={() => window.open('https://buymeacoffee.com/', '_blank')}
                         title={t('about.coffee')}
                         aria-label={t('about.coffee')}
                     >

@@ -252,7 +252,7 @@ const createWindow = () => {
     }
 
     // 1. Bloqueia atalhos de teclado do DevTools (F12, Ctrl+Shift+I, etc.)
-    mainWindow.webContents.openDevTools({ mode: 'detach' });
+    //mainWindow.webContents.openDevTools({ mode: 'detach' });
     mainWindow.webContents.on('before-input-event', (event, input) => {
         // Bloqueia F12
         if (input.key === 'F12') {

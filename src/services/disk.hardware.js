@@ -1,8 +1,7 @@
-const si = eval('require')('systeminformation');
-
 const DiskService = {
     async getDiskStats() {
         try {
+            const si = eval('require')('systeminformation');
             const fsSize = await si.fsSize();
             // Em caso de array vazio, o fallback utiliza 0 absoluto e mount nulo
             const mainDisk = fsSize[0] || { size: 0, used: 0, use: 0, mount: null };

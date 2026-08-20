@@ -1,12 +1,12 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
 
-const si = eval('require')('systeminformation');
 const execAsync = promisify(exec);
 
 const HardwareService = {
     async getDetailedHardwareInfo() {
         try {
+            const si = eval('require')('systeminformation');
             const [cpu, mem, baseboard, bios, osInfo, audio, network, graphics] = await Promise.all([
                 si.cpu(),
                 si.mem(),

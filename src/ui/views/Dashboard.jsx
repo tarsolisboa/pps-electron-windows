@@ -210,45 +210,88 @@ export function DashboardView({ onNavigate, isDarkMode }) {
     const [netStats, setNetStats] = useState({ downloadBytesPerSec: 0, uploadBytesPerSec: 0 });
     const [sysStats, setSysStats] = useState({ deviceName: null, osName: null, osBuild: null, uptimeSeconds: 0, activePowerPlan: null, topProcesses: [] });
 
-    // Hooks mantidos, mas agora só disparam o re-render do sub-card correspondente!
+    // 1. CPU: Começa quase imediatamente, atualiza a cada 1s
     useEffect(() => {
+        let isMounted = true;
+        let timer;
+
         const fetchCpu = async () => {
+            if (!isMounted) return;
             const data = await window.api?.stats?.getCpu?.();
-            if (data) setCpuStats(data);
+            if (data && isMounted) setCpuStats(data);
+            timer = setTimeout(fetchCpu, 1000); // Só chama o próximo quando este terminar
         };
-        fetchCpu();
-        const interval = setInterval(fetchCpu, 1000);
-        return () => clearInterval(interval);
+
+        // Dá 100ms para a tela renderizar visualmente primeiro
+        setTimeout(fetchCpu, 100); 
+
+        return () => {
+            isMounted = false;
+            clearTimeout(timer);
+        };
     }, []);
 
+    // 2. Rede: Começa depois da CPU, atualiza a cada 1.5s
     useEffect(() => {
+        let isMounted = true;
+        let timer;
+
         const fetchNet = async () => {
+            if (!isMounted) return;
             const data = await window.api?.stats?.getNetwork?.();
-            if (data) setNetStats(data);
+            if (data && isMounted) setNetStats(data);
+            timer = setTimeout(fetchNet, 1500);
         };
-        fetchNet();
-        const interval = setInterval(fetchNet, 1500);
-        return () => clearInterval(interval);
+
+        // Espera 300ms antes da primeira chamada
+        setTimeout(fetchNet, 300);
+
+        return () => {
+            isMounted = false;
+            clearTimeout(timer);
+        };
     }, []);
 
+    // 3. Sistema: Começa depois, atualiza a cada 3s
     useEffect(() => {
-        const fetchDisk = async () => {
-            const data = await window.api?.stats?.getDisk?.();
-            if (data) setDiskStats(data);
-        };
-        fetchDisk();
-        const interval = setInterval(fetchDisk, 10000);
-        return () => clearInterval(interval);
-    }, []);
+        let isMounted = true;
+        let timer;
 
-    useEffect(() => {
         const fetchSys = async () => {
+            if (!isMounted) return;
             const data = await window.api?.stats?.getSystem?.();
-            if (data) setSysStats(data);
+            if (data && isMounted) setSysStats(data);
+            timer = setTimeout(fetchSys, 3000);
         };
-        fetchSys();
-        const interval = setInterval(fetchSys, 3000);
-        return () => clearInterval(interval);
+
+        // Espera 600ms antes da primeira chamada
+        setTimeout(fetchSys, 600);
+
+        return () => {
+            isMounted = false;
+            clearTimeout(timer);
+        };
+    }, []);
+
+    // 4. Disco: É o mais pesado! Começa por último, atualiza a cada 15s
+    useEffect(() => {
+        let isMounted = true;
+        let timer;
+
+        const fetchDisk = async () => {
+            if (!isMounted) return;
+            const data = await window.api?.stats?.getDisk?.();
+            if (data && isMounted) setDiskStats(data);
+            timer = setTimeout(fetchDisk, 15000);
+        };
+
+        // Espera 1 segundo inteiro antes de estressar o disco
+        setTimeout(fetchDisk, 1000);
+
+        return () => {
+            isMounted = false;
+            clearTimeout(timer);
+        };
     }, []);
 
     const handleFlushMem = async () => {

@@ -14,7 +14,7 @@ import { t } from '../../i18n';
 
 import shieldAlertSvg from '../assets/icons/shield-alert.svg';
 import shieldCheckSvg from '../assets/icons/shield-check.svg';
-import shieldErrorSvg from'../assets/icons/shield-x.svg';
+import shieldErrorSvg from '../assets/icons/shield-x.svg';
 import firewallSvg from '../assets/icons/brick-wall-shield.svg';
 
 const useStyles = makeStyles({
@@ -65,22 +65,23 @@ const useStyles = makeStyles({
 
 export function SecurityView({ isDarkMode }) {
     const styles = useStyles();
-
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [security, setSecurity] = useState({ os: null, antivirus: [], firewall: [] });
 
-    const loadSecurityData = async () => {
+    const loadSecurityData = async (isInitial = false) => {
+        if (isInitial) setLoading(true);
         try {
-            if (window.api?.security?.getSecurityStatus) {
-                const data = await window.api.security.getSecurityStatus();
-                setSecurity(data);
+            if (window.api?.security) {
+                const [data] = await Promise.all([
+                    window.api.security.getSecurityStatus()
+                ]);
+                setSecurity(data || { os: null, antivirus: [], firewall: [] });
             }
         } catch (e) {
-            console.error(e);
             setError(t('security.error'));
         } finally {
-            setLoading(false);
+            if (isInitial) setLoading(false);
         }
     };
 
@@ -93,7 +94,7 @@ export function SecurityView({ isDarkMode }) {
     };
 
     useEffect(() => {
-        loadSecurityData();
+        loadSecurityData(true);
     }, []);
 
     const hasAntivirus = security.antivirus && security.antivirus.length > 0;
@@ -111,46 +112,49 @@ export function SecurityView({ isDarkMode }) {
                     <Text weight="semibold" style={{ color: '#a80000' }}>{error}</Text>
                 </Card>
             )}
-
-            {loading && !security ? (
-                <Card className={styles.card}>
-                    <Spinner size="medium" label={t('security.loading')} />
-                </Card>
-            ) : security && (
-                <div>
-                    <div style={{ marginBottom: '16px'}}>
-                        {/* 1 WINDOWS UPDATE */}
-                        <Card className={styles.card}>
-                            <Text weight="semibold" size={500} className={styles.sectionTitle}>{t('security.windowsUpdateTitle')}</Text>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px' }}>
-                                <div>
-                                    <Text size={300} style={{ display: 'block' }}>
-                                        <strong>{t('security.osName')}</strong>: {security.os?  `${security.os.name}` : 'Windows'}
-                                    </Text>
-                                    <Text size={300} style={{ display: 'block' }}>
-                                        <strong>{t('security.lastUpdate')}</strong>: {security.os?  `${security.os.lastUpdate}` : '-'}
-                                    </Text>
-                                    <Text size={300} style={{ display: 'block' }}>
-                                        <strong>{t('security.windowsBuild')}</strong>: {security.os? `${security.os.build}` : '-'}
-                                    </Text>
-                                </div>
-                                <Button 
-                                    appearance="primary" 
-                                    onClick={handleOpenUpdate}
-                                >
-                                    {t('security.openUpdateSettings')}
-                                </Button>
+            
+            {/* 1 WINDOWS UPDATE */}
+            <Card className={styles.card}>
+                <Text weight="semibold" size={500} className={styles.sectionTitle}>{t('security.windowsUpdateTitle')}</Text>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
+                    {loading ? <Spinner size="tiny" /> : (
+                        <div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', marginBottom: '2px' }}>
+                                <Text size={300} style={{ display: 'block' }}>
+                                    <strong>{t('security.osName')}</strong>: {security.os ? `${security.os.name}` : 'Windows'}
+                                </Text>
                             </div>
-                        </Card>
-                    </div>
-                    <div className={styles.gridCards}>
-                        {/* 2 ANTIVIRUS */}
-                        <Card className={styles.card}>
-                            <Text weight="semibold" size={500} className={styles.sectionTitle}>{t('security.antivirusTitle')}</Text>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', marginBottom: '2px' }}>
+                                <Text size={300} style={{ display: 'block' }}>
+                                    <strong>{t('security.lastUpdate')}</strong>: {security.os ? `${security.os.lastUpdate}` : '-'}
+                                </Text>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', marginBottom: '2px' }}>
+                                <Text size={300} style={{ display: 'block' }}>
+                                    <strong>{t('security.windowsBuild')}</strong>: {security.os ? `${security.os.build}` : '-'}
+                                </Text>
+                            </div>
+                        </div>
+                    )}
+                    <Button
+                        appearance="primary"
+                        onClick={handleOpenUpdate}
+                    >
+                        {t('security.openUpdateSettings')}
+                    </Button>
+                </div>
+            </Card>
+            
+            {/* 2 ANTIVIRUS */}
+            <Card className={styles.card}>
+                <Text weight="semibold" size={500} className={styles.sectionTitle}>{t('security.antivirusTitle')}</Text>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
+                    <div style={{width: '100%'}}>
+                        {loading ? <Spinner size="tiny"/> : (
                             <div>
                                 {hasAntivirus ? (
                                     security.antivirus.map((av, index) => (
-                                        <div key={index} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', background: 'rgba(0,0,0,0.02)', borderRadius: '6px' }}>
+                                        <div key={index} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', marginBottom: '8px', background: 'rgba(0,0,0,0.02)', borderRadius: '6px' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                                 {av.enabled ? <img src={shieldCheckSvg}/> : <img src={shieldAlertSvg}/>}
                                                 <Text weight="medium">{av.name}</Text>
@@ -166,18 +170,24 @@ export function SecurityView({ isDarkMode }) {
                                             <img src={shieldErrorSvg} style={{ verticalAlign: 'middle' }}/>
                                             {t('security.noAntivirusDetected')}
                                         </div>
-                                </div> 
+                                    </div> 
                                 )}
                             </div>
-                        </Card>
-                        
-                        {/* 3 FIREWALL */}
-                        <Card className={styles.card}>
-                            <Text weight="semibold" size={500} className={styles.sectionTitle}>{t('security.firewallTitle')}</Text>
+                        )}
+                    </div>
+                </div>
+            </Card>
+
+            {/* 3 FIREWALL */}
+            <Card className={styles.card}>
+                <Text weight="semibold" size={500} className={styles.sectionTitle}>{t('security.firewallTitle')}</Text>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
+                    <div style={{width: '100%'}}>
+                        {loading ? <Spinner size="tiny"/> : (
                             <div>
                                 {hasFirewall ? (
                                     security.firewall.map((fw, index) => (
-                                        <div key={index} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', background: 'rgba(0,0,0,0.02)', borderRadius: '6px' }}>
+                                        <div key={index} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', marginBottom: '8px', background: 'rgba(0,0,0,0.02)', borderRadius: '6px' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                                 {fw.Enabled ? <img src={firewallSvg}/> : <img src={firewallSvg}/>}
                                                 <Text weight="medium">{t(`security.${fw.Name.toLowerCase()}`)}</Text>
@@ -193,14 +203,13 @@ export function SecurityView({ isDarkMode }) {
                                             <img src={shieldErrorSvg} style={{ verticalAlign: 'middle' }}/>
                                             {t('security.noFirewallDetected')}
                                         </div>
-                                </div> 
+                                    </div> 
                                 )}
                             </div>
-                        </Card>
-
+                        )}
                     </div>
                 </div>
-            )}
+            </Card>
         </div>
     );
 }
