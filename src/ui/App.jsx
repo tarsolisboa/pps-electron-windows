@@ -53,7 +53,7 @@ export function App() {
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     // Gradientes definidos conforme especificado
-    const darkGradient = 'linear-gradient(to right, #434343 0%, black 100%)';
+    const darkGradient = 'linear-gradient(180deg, #2c3137 0%, #21262c 99%, #151c25 100%)';
     const lightGradient = 'linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%)';
 
     useEffect(() => {

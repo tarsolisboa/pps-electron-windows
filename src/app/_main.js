@@ -223,36 +223,8 @@ export async function updateTrayMenu() {
     tray.setContextMenu(contextMenu);
 }
 
-let splashWindow = null;
-
 const createWindow = () => {
-    // 1. CRIA A SPLASH SCREEN PRIMEIRO
-    splashWindow = new BrowserWindow({
-        width: 550,
-        height: 400,
-        resizable: false,
-        frame: false,
-        transparent: true,
-        autoHideMenuBar: true,
-        alwaysOnTop: true,
-        backgroundColor: '#00000000',
-        center: true,
-        icon: trayIcon,
-        webPreferences: {
-            nodeIntegration: false,
-            contextIsolation: true
-        }
-    });
 
-    // Carrega o arquivo splash.html
-    // DICA: Crie o splash.html dentro da sua pasta "public" para o Vite copiá-lo automaticamente
-    const splashPath = app.isPackaged 
-        ? path.join(process.resourcesPath, 'app/public/splash.html') 
-        : path.join(__dirname, '../../public/splash.html');
-    
-    splashWindow.loadFile(splashPath);
-
-    // 2. CRIA A JANELA PRINCIPAL (TOTALMENTE OCULTA)
     mainWindow = new BrowserWindow({
         width: 1000,
         height: 730,
@@ -260,7 +232,7 @@ const createWindow = () => {
         minHeight: 550,
         frame: false,
         center: true,
-        show: false,
+        show: true,
         alwaysOnTop: false,
         autoHideMenuBar: true,
         icon: trayIcon,        
@@ -275,50 +247,68 @@ const createWindow = () => {
 
     const devUrl = process.env.VITE_DEV_SERVER_URL || 'http://localhost:5173';
 
+    // OMNICHECK SCREEN
     if (process.env.NODE_ENV === 'development' || !app.isPackaged) {
         mainWindow.loadURL(devUrl);
     } else {
         mainWindow.loadFile(path.join(__dirname, '../renderer/main_window/index.html'));
     }
 
-    // Bloqueia atalhos de teclado do DevTools e menu de contexto (Seu código original)
+    // 1. Bloqueia atalhos de teclado do DevTools (F12, Ctrl+Shift+I, etc.)
+    //mainWindow.webContents.openDevTools({ mode: 'detach' });
     mainWindow.webContents.on('before-input-event', (event, input) => {
-        if (input.key === 'F12') event.preventDefault();
-        if (input.control && input.shift && ['I', 'J', 'C', 'i', 'j', 'c'].includes(input.key)) event.preventDefault();
-        if (input.control && ['U', 'u'].includes(input.key)) event.preventDefault();
+        // Bloqueia F12
+        if (input.key === 'F12') {
+            event.preventDefault();
+        }
+
+        // Bloqueia Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C e Ctrl+U (código fonte)
+        if (input.control && input.shift && ['I', 'J', 'C', 'i', 'j', 'c'].includes(input.key)) {
+            event.preventDefault();
+        }
+
+        if (input.control && ['U', 'u'].includes(input.key)) {
+            event.preventDefault();
+        }
     });
+
+    // 2. Desativa o clique com o botão direito (Menu de Contexto / Inspecionar)
     mainWindow.webContents.on('context-menu', (event) => {
         event.preventDefault();
     });
 
-    // 3. LÓGICA DO TEMPORIZADOR (5 Segundos)
-    setTimeout(() => {
-        // Destrói a Splash Screen
-        if (splashWindow && !splashWindow.isDestroyed()) {
-            splashWindow.close();
-        }
-        
-        // Exibe a Janela Principal do OmniCheck
-        if (mainWindow && !mainWindow.isDestroyed()) {
-            mainWindow.show();
-            mainWindow.focus();
-        }
-    }, 5000);
+    mainWindow.once('ready-to-show', () => {
+        mainWindow.show();
+        mainWindow.focus();
+    });
 
-    // Regras de Minimização e Fechamento (Seu código original mantido)
+    // ---------------------------------------------------------
+    // 1. REGRA DE MINIMIZAR (Botão "_" da barra customizada)
+    // ---------------------------------------------------------
     mainWindow.on('minimize', (event) => {
         const settings = SettingsService.getSettings();
+
+        // Se a opção de minimizar para a bandeja estiver ativada, esconde a janela
         if (settings.minimizeToTray) {
             event.preventDefault();
             mainWindow.hide();
         }
+        // Se estiver desativada, o Windows faz o comportamento padrão (minimiza normal)
     });
 
+    // ---------------------------------------------------------
+    // 2. REGRA DE FECHAR / SAIR (Botão "X" ou "Encerrar" do Tray)
+    // ---------------------------------------------------------
     mainWindow.on('close', async (event) => {
+        // Se a ordem veio do Tray (botão Encerrar) ou se já decidimos sair, fecha direto
         if (isQuitting) return;
-        event.preventDefault(); 
+
+        event.preventDefault(); // Impede o fechamento imediato para avaliar a regra de confirmação
+
         try {
             const settings = SettingsService.getSettings();
+
+            // Verifica se a opção "Confirmar ao sair" está ativada
             if (settings.confirmOnExit) {
                 const dialogTexts = {
                     'de': { title: 'Bestätigung', msg: 'Möchten Sie OmniCheck wirklich beenden?', btnYes: 'Ja, nah dran.', btnNo: 'Nein, abbrechen' },
@@ -330,8 +320,10 @@ const createWindow = () => {
                     'ru': { title: 'Подтверждение', msg: 'Вы действительно хотите выйти из OmniCheck?', btnYes: 'Да, близко', btnNo: 'Нет, отмена' },
                     'zh-TW': { title: '確認', msg: '您確定要退出 OmniCheck 嗎？', btnYes: '是的，很接近', btnNo: '不，取消' }
                 };
+
                 const lang = settings.language || 'en';
                 const texts = dialogTexts[lang] || dialogTexts['en'];
+
                 const choice = await dialog.showMessageBox(mainWindow, {
                     type: 'question',
                     buttons: [texts.btnYes, texts.btnNo],
@@ -340,15 +332,20 @@ const createWindow = () => {
                     title: texts.title,
                     message: texts.msg
                 });
+
+                // Se clicou em "Sim, encerrar" (índice 0)
                 if (choice.response === 0) {
                     isQuitting = true;
                     app.quit();
                 }
+                // Se clicou em "Cancelar" (índice 1), não faz nada e o app continua aberto
                 return;
             } else {
+                // Se "Confirmar ao sair" estiver desligado, encerra direto sem aviso
                 isQuitting = true;
                 app.quit();
             }
+
         } catch (e) {
             console.error("Erro ao processar o encerramento:", e);
             isQuitting = true;

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splash Screen</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* 2. O container principal que terá a borda arredondada */
+        .splash-container {
+            width: 100%;
+            height: 100%;
+            background-color: #f8f8f8;
+            border-radius: 16px;
+            /*border: 1px solid rgba(255, 255, 255, 0.1);*/
+            /*box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);*/
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+            -webkit-app-region: drag;
+        }
+
+        .ppsTitle {
+            color: #f70303;
+            font-size: 2rem;
+            margin: 15px 0px;
+            font-weight: bolder;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;            
+        }
+
+        .versionTitle {
+            color: #212121;
+            font-weight: 400;
+            padding-top: 6px;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+        }
+
+        .imageTitle {
+            max-width: 20%;
+            width: 20%;
+            padding-bottom: 5px;
+        }
+
+        .content {
+            user-select: none;
+        }
+
+        .progress-container {
+            margin-top: 24px;
+            width: 70%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: -40%;
+            width: 40%;
+            /* Tamanho do "risco" que fica se movendo */
+            height: 100%;
+            background-color: #0078D4;
+            /* Azul padrão do Windows/Fluent */
+            border-radius: 4px;
+            animation: slide 1.5s infinite ease-in-out;
+        }
+
+        @keyframes slide {
+            0% {
+                left: -40%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="splash-container">
+        <img src="logo.png" class="imageTitle"/>
+        <div class="content" style="display: flex; gap: 10px;">
+            <span class="ppsTitle">OmniCheck</span>
+            <span class="versionTitle">v1.0.0</span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+</body>
+</html>
