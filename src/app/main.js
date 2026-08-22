@@ -244,14 +244,6 @@ const createWindow = () => {
         }
     });
 
-    // Carrega o arquivo splash.html
-    // DICA: Crie o splash.html dentro da sua pasta "public" para o Vite copiá-lo automaticamente
-    const splashPath = app.isPackaged 
-        ? path.join(process.resourcesPath, 'app/public/splash.html') 
-        : path.join(__dirname, '../../public/splash.html');
-    
-    splashWindow.loadFile(splashPath);
-
     // 2. CRIA A JANELA PRINCIPAL (TOTALMENTE OCULTA)
     mainWindow = new BrowserWindow({
         width: 1000,
@@ -274,6 +266,12 @@ const createWindow = () => {
     });
 
     const devUrl = process.env.VITE_DEV_SERVER_URL || 'http://localhost:5173';
+
+    const splashPath = app.isPackaged 
+        ? path.join(__dirname, '../renderer/main_window/splash.html') 
+        : path.join(__dirname, '../../public/splash.html');
+    
+    splashWindow.loadFile(splashPath);
 
     if (process.env.NODE_ENV === 'development' || !app.isPackaged) {
         mainWindow.loadURL(devUrl);
@@ -303,7 +301,7 @@ const createWindow = () => {
             mainWindow.show();
             mainWindow.focus();
         }
-    }, 5000);
+    }, 10000);
 
     // Regras de Minimização e Fechamento (Seu código original mantido)
     mainWindow.on('minimize', (event) => {
